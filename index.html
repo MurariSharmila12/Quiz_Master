@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f0f2f5; }
+        .container { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        h1 { color: #333; }
+        .choice-button { display: block; background-color: #008CBA; color: white; padding: 15px 30px; margin: 15px auto; border: none; border-radius: 5px; cursor: pointer; font-size: 18px; text-decoration: none; width: 200px; }
+        .choice-button:hover { background-color: #007B9E; }
+        .all-button { background-color: #4CAF50; }
+        .all-button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Ultimate Quiz Game!</h1>
+        <p>How many questions would you like to answer?</p>
+
+        <!-- The Jinja2 templating allows us to use 'if' statements in HTML -->
+        {% if total_available >= 15 %}
+            <a href="{{ url_for('start_quiz', num_questions_str='15') }}" class="choice-button">15 Questions</a>
+        {% endif %}
+
+        {% if total_available >= 25 %}
+            <a href="{{ url_for('start_quiz', num_questions_str='25') }}" class="choice-button">25 Questions</a>
+        {% endif %}
+
+        <a href="{{ url_for('start_quiz', num_questions_str='all') }}" class="choice-button all-button">All {{ total_available }} Questions</a>
+
+    </div>
+</body>
+</html>
