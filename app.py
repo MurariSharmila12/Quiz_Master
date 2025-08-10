@@ -15,7 +15,9 @@ def load_questions_on_startup():
     global QUESTIONS
     questions_temp = []
     try:
+        # Get the absolute path of the directory where app.py is located
         base_dir = os.path.dirname(os.path.abspath(__file__))
+        # Construct the full path to the quiz.csv file
         csv_path = os.path.join(base_dir, "quiz.csv")
         with open(csv_path, 'r', encoding='utf-8', newline='') as f:
             reader = csv.DictReader(f)
@@ -28,6 +30,9 @@ def load_questions_on_startup():
         print(f"--- CRITICAL ERROR --- quiz.csv not found at {csv_path}. The app will not work.")
     except Exception as e:
         print(f"--- CRITICAL ERROR --- An error occurred on startup: {e}")
+
+# Call the function here, outside the 'if __name__' block
+load_questions_on_startup()
 
 # --- ROUTES ---
 
@@ -110,7 +115,6 @@ def results():
     total_questions = len(session.get('question_order', []))
     return render_template('results.html', score=score, total_questions=total_questions)
 
-# This runs the function to load questions BEFORE the web server starts.
+# This part is only for local development
 if __name__ == '__main__':
-    load_questions_on_startup()
     app.run(debug=True)
